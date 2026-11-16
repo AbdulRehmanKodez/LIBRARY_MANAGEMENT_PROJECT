@@ -9,6 +9,7 @@ struct Book{
     string title;
     string author;
     bool isAvaliable;
+    string Borrowedby;
 };
 vector<Book>library;
 //-------------------ADD BOOK FUNCTION---------------
@@ -73,7 +74,81 @@ for (const Book& b : library) {
         }
 
      }
+
+     //------------------UPDATE BOOK-----------------------
+
+     void update_book(){
+
+    
+     int id;
+      cout<<"Enter the id of book you want to update";
+      cin>>id;
+      cin.ignore();
+      for (Book& book : library) {
+           
+           if (id==book.id) {
+             cout << "Enter new title: ";
+            getline(cin, book.title);
+
+            cout << "Enter new author: ";
+            getline(cin, book.author);
+
+            cout << "Book updated successfully.\n";
+            return;
+           }
+
+      }
+       
+         cout<<"Book with id : "<<id<<" not found\n";
+     }
      
+     //---------------SEARCH A SINGLE BOOK--------------
+
+     void search_book(){
+
+    
+     int id;
+      cout<<"Enter the id of book you want to search";
+      cin>>id;
+      cin.ignore();
+      for ( Book& book : library) {
+           
+           if (id==book.id) {
+              cout<<"ID "<< book.id<<endl;
+          cout<<"Title "<< book.title<<endl;
+          cout<<"Author "<< book.author<<endl;
+          cout<<"Borrowed "<< (book.isAvaliable==1?"No":"Yes")<<endl;
+          if (book.isAvaliable==0) {
+            cout<<"Borrower name is: "<< book.Borrowedby<<endl;
+          }
+          else if(book.isAvaliable==1){
+            
+             char choice;
+            cout<<"Want to Borrow?\nY/y if yes -- "<<endl;
+            cin>>choice;
+            cin.ignore();
+            switch (choice) {
+            case 'y':
+                case 'Y':
+             cout<<"Enter Borrower name\n";
+             getline(cin,book.Borrowedby);
+             book.isAvaliable=false;
+             cout << "Book borrowed successfully.\n";
+             break;
+             default:
+             break;
+            }
+            
+          }
+
+            
+            return;
+           }
+
+      }
+       
+         cout<<"Book with id : "<<id<<" not found\n";
+     }
  
 int main(){
 
@@ -93,6 +168,12 @@ int main(){
     break;
     case 2:
     remove_book();
+    break;
+    case 3:
+    update_book();
+    break;
+    case 4:
+    search_book();
     break;
     case 5:
     display_all_books();
